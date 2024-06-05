@@ -8,6 +8,9 @@ path = "app/__init__.py"
 [project]
 name = "myapp"
 version = "0.0.1"
+dependencies = [
+    "solara",
+]
 
 [project.urls]
 Home = "https://www.github.com/widgetti/solara"
