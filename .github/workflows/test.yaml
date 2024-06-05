@@ -33,7 +33,7 @@ jobs:
           run: solara run myapp.app&
 
         - name: Curl server response
-          run: curl --head --retry 35 --retry-connrefused --retry-delay 5 http://localhost:8765
+          run: curl --head -X GET --retry 35 --retry-connrefused --retry-delay 5 http://localhost:8765
 
   test-two:
     runs-on: macos-latest
