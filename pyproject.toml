@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "app/__init__.py"
+
+[project]
+name = "myapp"
+version = "0.0.1"
+
+[project.urls]
+Home = "https://www.github.com/widgetti/solara"
