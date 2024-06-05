@@ -14,23 +14,47 @@ defaults:
     shell: bash {0}
 
 jobs:
-    test:
-        runs-on: macos-latest
+  test:
+    runs-on: macos-latest
 
-        steps:
-            - uses: actions/checkout@v4
+    steps:
+        - uses: actions/checkout@v4
 
-            - name: Set up Python
-              uses: actions/setup-python@v2
-              with:
-                python-version: "3.10"
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: "3.10"
 
-            - name: Install dependencies
-              run: |
-                pip install .
+        - name: Install dependencies
+          run: |
+            pip install .
 
-            - name: Run myapp
-              run: solara run myapp.app&
+        - name: Run myapp
+          run: solara run myapp.app&
 
-            - name: Curl server response
-              run: curl --head --retry 35 --retry-connrefused --retry-delay 5 http://localhost:8765
+        - name: Curl server response
+          run: curl --head --retry 35 --retry-connrefused --retry-delay 5 http://localhost:8765
+
+  test-two:
+    runs-on: macos-latest
+
+    steps:
+        - uses: actions/checkout@v4
+
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: "3.10"
+
+        - name: Install dependencies
+          run: |
+            pip install solara
+
+        - name: Make solara example app
+          run: solara create button test.py
+
+        - name: Run example app
+          run: solara run test.py&
+
+        - name: Curl server response
+          run: curl --head -X GET --retry 35 --retry-connrefused --retry-delay 5 http://localhost:8765
