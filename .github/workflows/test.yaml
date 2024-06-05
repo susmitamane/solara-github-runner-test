@@ -30,7 +30,7 @@ jobs:
                 pip install .
 
             - name: Run myapp
-              run: solara run myapp.app
+              run: solara run myapp.app&
 
             - name: Curl server response
               run: curl --head --retry 35 --retry-connrefused --retry-delay 5 http://localhost:8765
