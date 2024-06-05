@@ -1,0 +1,36 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ !(github.ref == 'refs/heads/main') }}
+
+defaults:
+  run:
+    shell: bash {0}
+
+jobs:
+    test:
+        runs-on: macos-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                python-version: "3.10"
+
+            - name: Install dependencies
+              run: |
+                pip install .
+
+            - name: Run myapp
+              run: solara run myapp.app
+
+            - name: Curl server response
+              run: curl --head --retry 35 --retry-connrefused --retry-delay 5 http://localhost:8765
